@@ -1,0 +1,9 @@
+.header{
+    border: 2px solid blue;
+    display: flex;
+    flex-direction: row; /* Alapértelmezetten horizontális -> Ez lesz a főtengely */
+    align-items: center; /* Ez lesz a főtengelyre merőleges kereszttengely */
+    
+    padding: 16px 24px; /* Itt maga a header nem engedi közel a tartalmat a széléhez. */
+    /*margin nem ide kell, hanem a benne levő elemeknek -> Egymástól való távolság*/
+}

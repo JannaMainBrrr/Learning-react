@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+}
+
+/*
+A szülő szélességének 100%-a, aki pedig a #root div az index.html-ben
+Azért kell 100vh, mert akkor a .app független lesz a #root méretétől, hosszabb távon így célszerű
+
+Box model:
+Padding: A doboz szélétől való távolság. 
+Margin az elemek egymástól való távolsága.
+
+*/
+
+.app {
+  border: 2px solid red;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+.user {
+  margin-left: auto;
+}

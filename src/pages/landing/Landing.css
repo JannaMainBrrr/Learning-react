@@ -1,0 +1,5 @@
+.landing {
+  border: 2px solid brown;
+  flex-grow: 1;
+  padding: 25px;
+}
