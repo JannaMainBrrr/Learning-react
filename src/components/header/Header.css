@@ -1,9 +1,14 @@
-.header{
-    border: 2px solid blue;
-    display: flex;
-    flex-direction: row; /* Alapértelmezetten horizontális -> Ez lesz a főtengely */
-    align-items: center; /* Ez lesz a főtengelyre merőleges kereszttengely */
-    
-    padding: 16px 24px; /* Itt maga a header nem engedi közel a tartalmat a széléhez. */
-    /*margin nem ide kell, hanem a benne levő elemeknek -> Egymástól való távolság*/
+.header {
+  border: 2px solid blue;
+  display: flex;
+  flex-direction: row; /* Alapértelmezetten horizontális -> Ez lesz a főtengely */
+  align-items: center; /* Ez lesz a főtengelyre merőleges kereszttengely */
+  justify-content: space-between; /* Lehetne .user margin-left: auto-val is, meg így is. Az első elem a bal széléshez tapad, az utolsó a jobb széléhez, közte pedig egyenlő távban osztja el. */
+  padding: 16px 24px; /* Itt maga a header nem engedi közel a tartalmat a széléhez. */
+  /*margin nem ide kell, hanem a benne levő elemeknek -> Egymástól való távolság*/
+}
+
+/*h1 default marginját levesszük*/
+.header h1 {
+  margin: 0;
 }

@@ -26,12 +26,23 @@
   border: 1px solid transparent; /* Alapjáraton ne látszódjon a border, mert ez inkább menü item mint sem gomb */
   background: transparent;
   border-radius: 8px; /* Lekerekített sarok */
+
+  display: block; /* fontos, mert <a> elem lett a NavLink hatására */
+  text-decoration: none; /* link aláhúzás eltüntetése */
+  color: inherit;
 }
 /*Sima hover állapot*/
 .sidebar__link:hover {
   border-color: #ccc;
   background: #f7f7f7;
 }
+
+/* aktív menüpont */
+.sidebar__link--active {
+  font-weight: 600;
+  background: #eee;
+}
+
 /* Vizuálisan elkülönítjük a menü többi részétől*/
 .sidebar__footer {
   margin-top: 12px;

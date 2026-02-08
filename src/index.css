@@ -1,4 +1,21 @@
-html, body, #root {
-  height: 100%;
+html,
+body,
+#root {
   margin: 0;
+  padding: 0;
+  height: 100%;
+}
+/*
+
+By default = content-box --> tényleges szélesség ilyenkor a width + padding + border lesz.
+  240 + 12 + 12 + 1 + 1 = 266px ❌
+  border-box --> tényleges szélesség: width lesz, mivel a padding + border ilyenkor BELÜLRŐL vesz el helyet 
+
+*/
+
+*, /*/Univerzális szelektor, MINDEN elemet kiválaszt*/
+/*Pszeudo elemek, pl CSS által hozzáadott elemek szelektorai */
+*::before, 
+*::after {
+  box-sizing: border-box;
 }

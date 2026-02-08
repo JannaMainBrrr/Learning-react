@@ -1,0 +1,17 @@
+.app {
+  height: 100vh; /* nem min-height */
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1; /* kitölti a header alatti teret */
+  display: flex;
+  overflow: hidden; /* ne itt scrollozzon, illetve ne legyen dupla scrollbar */
+}
+
+.mainContent {
+  flex: 1;
+  padding: 16px;
+  overflow: auto; /* CSAK itt legyen scroll */
+}

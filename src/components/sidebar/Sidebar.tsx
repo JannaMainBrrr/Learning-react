@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 type SidebarItem = {
@@ -13,12 +14,44 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
 ];
 
 //A sidebar nem kezeli a stateket, de megcsináljuk a kiállást neki: Ha megkapja az onLogout függvényt, akkor végrehajtja majd.
+//Itt a ? szintaktika js specifikus, jelentése: Opcionális prop
 type SidebarProps = {
   onLogout?: () => void;
 };
 //Lista mappolása, annyi a különbség, hogy a routing miatt a path lesz a key, van BEM naming convention (Block__element--modifier)
 //A kezdő {} a JS helye, illetve egyelőre belerakunk egy buttont minden listaelemhez, ami a consoleba írja, hova navigálnánk.)
 //A map () tartalma azért van plusz zárójelben, mert függvényt vár. A függvéy szintaxisa pedig: (item) => (...)
+
+/* Navlink működése:
+
+to={item.path} -> Egy olyan prop, ami megadja a NavLinknek, hogy hova navigáljunk kattintáskor.
+
+className={...}
+  ->Egy függvény, amit a NavLink meghív és átadja neki az aktuális állapotot, még pedig azt, hogy isActive === true vagy false
+    ->Ezt a paramétert destructoljuk, azért kell a ({isActive}) => ...
+    Outputja egy string lesz, mert a className prop stringet vár
+      Stringbe ágyazott javascript : `sidebar__link ${isActive ? "sidebar__link--active" : ""}` -> feltétel ? érték_ha_igaz : érték_ha_hamis
+        ha isActive === true, akkor: "sidebar__link sidebar__link--active"
+        ha isActive === false, akkor: "sidebar__link "
+
+item.path === "/" -> ez egy boolean prop, azért kell, hogy a Dashboard ne legyen mindig aktív.
+  true, ha Dashboard -> a NavLink csak akkor aktív, ha az URL pontosan /
+  false, ha bármi más
+
+{item.label} -> a label szövege jelenik meg, ami a link felirata lesz.
+
+Teljes folyamat:
+1) User kattint a NavLink-re
+2) URL megváltozik (pl. /games)
+3) Router észreveszi
+4) <Routes> kiválasztja a <GamesPage />-et
+5) Az AppLayout {children}-je ez lesz
+6) A Sidebar újrarenderelődik
+7) A NavLink megkapja: isActive = true
+8) Rákerül a sidebar__link--active class
+
+*/
+
 export default function Sidebar({ onLogout }: SidebarProps) {
   return (
     <aside className="sidebar">
@@ -26,13 +59,15 @@ export default function Sidebar({ onLogout }: SidebarProps) {
         <ul className="sidebar__list">
           {SIDEBAR_ITEMS.map((item) => (
             <li key={item.path} className="sidebar__item">
-              <button
-                type="button"
-                className="sidebar__link"
-                onClick={() => console.log("Navigate to:", item.path)}
+              <NavLink
+                to={item.path}
+                className={({ isActive }) =>
+                  `sidebar__link  ${isActive ? "--active" : ""}`
+                }
+                end={item.path === "/"}
               >
                 {item.label}
-              </button>
+              </NavLink>
             </li>
           ))}
         </ul>
