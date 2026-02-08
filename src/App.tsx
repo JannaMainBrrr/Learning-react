@@ -9,7 +9,7 @@ function App() {
       {/* Wrapper -> Legkülsőbb réteg, minden elem a gyereke lesz, a neve lehet még: Layout, container, content, page, root */}
       <Header />
       <div className="content">
-        <Sidebar />
+        <Sidebar onLogout={() => console.log("TODO: logout")} />
         <Landing />
       </div>
     </div>
