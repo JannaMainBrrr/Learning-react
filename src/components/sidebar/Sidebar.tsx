@@ -62,7 +62,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
               <NavLink
                 to={item.path}
                 className={({ isActive }) =>
-                  `sidebar__link  ${isActive ? "--active" : ""}`
+                  `sidebar__link ${isActive ? "sidebar__link--active" : ""}`
                 }
                 end={item.path === "/"}
               >

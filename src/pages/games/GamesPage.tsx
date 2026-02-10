@@ -1,3 +1,24 @@
+import { GAMES } from "../../data/games";
+import "./GamesPage.css";
+
 export default function GamesPage() {
-  return <h1>Games (TODO)</h1>;
+  return (
+    <section className="gamesPage">
+      <header className="gamesPage__header">
+        <h1 className="gamesPage__title">Welcome to the games page!</h1>
+      </header>
+      <div className="gamesPage__grid">
+        {GAMES.map((game) => (
+          <article key={game.id} className="gamesPage__card">
+            <img
+              className="gamesPage__cover"
+              src={game.coverUrl}
+              alt={game.title}
+              loading="lazy"
+            />
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
