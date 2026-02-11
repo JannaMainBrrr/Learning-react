@@ -1,15 +1,9 @@
-/* 
-  A teljes Games oldal konténere.
-  Most csak spacing miatt van, a layoutot nem ez intézi.
-*/
+/*A teljes Games oldal konténere. Most csak spacing miatt van, a layoutot nem ez intézi.*/
 .gamesPage {
   padding: 16px;
 }
 
-/*
-  Oldal fejléce (cím).
-  Elkülönítjük a gridtől vizuálisan.
-*/
+/*Oldal fejléce (cím). Elkülönítjük a gridtől vizuálisan.*/
 .gamesPage__header {
   margin-bottom: 16px;
 }
@@ -17,7 +11,7 @@
 .gamesPage__grid {
   display: grid;
 
-  /*A grid annyi oszlopot rak ki, amennyi kifér, DE egy kártya minimum 220px széles legyen. Desktopon ez tipikusan 3 oszlopot fog adni.*/
+  /*A grid annyi oszlopot rak ki, amennyi kifér, DE egy kártya minimum 260px széles legyen. Desktopon ez tipikusan 3 oszlopot fog adni.*/
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 
   gap: 48px 48px;
@@ -27,7 +21,7 @@
   width: 100%;
   aspect-ratio: 1 / 1; /* ikon tile */
   overflow: hidden; /* kép ne lógjon ki */
-  border-radius: 24px;
+  border-radius: 36px;
 
   background: transparent;
   transition:
