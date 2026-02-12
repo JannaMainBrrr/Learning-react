@@ -19,3 +19,65 @@ By default = content-box --> tényleges szélesség ilyenkor a width + padding +
 *::after {
   box-sizing: border-box;
 }
+
+:root {
+  /* Base colors */
+  --color-bg: #0f172a; /* main background */
+  --color-surface: #1e293b; /* card surfaces */
+  --color-surface-2: #334155; /* hover surface */
+
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+
+  --color-accent: #6366f1; /* indigo accent */
+  --color-accent-hover: #818cf8;
+
+  /* Radius scale */
+  --radius-sm: 12px;
+  --radius-md: 24px;
+  --radius-lg: 36px;
+
+  /* Shadow scale */
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 999px;
+}
+
+.gamesPage__cardInner {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}

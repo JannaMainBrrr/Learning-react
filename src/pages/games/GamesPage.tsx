@@ -1,4 +1,5 @@
 import { GAMES } from "../../data/games";
+import { Link } from "react-router-dom";
 import "./GamesPage.css";
 
 export default function GamesPage() {
@@ -9,14 +10,20 @@ export default function GamesPage() {
       </header>
       <div className="gamesPage__grid">
         {GAMES.map((game) => (
-          <article key={game.id} className="gamesPage__card">
-            <img
-              className="gamesPage__cover"
-              src={game.coverUrl}
-              alt={game.title}
-              loading="lazy"
-            />
-          </article>
+          <Link
+            key={game.id}
+            to={`/games/${game.id}`}
+            className="gamesPage__card"
+          >
+            <div className="gamesPage__cardInner">
+              <img
+                className="gamesPage__cover"
+                src={game.coverUrl}
+                alt={game.title}
+                loading="lazy"
+              />
+            </div>
+          </Link>
         ))}
       </div>
     </section>

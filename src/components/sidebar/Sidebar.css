@@ -1,60 +1,88 @@
 .sidebar {
   width: 240px;
   display: flex;
-  flex-direction: column; /* 2 elem van benne: nav és footer */
-  border-right: 1px solid #ddd; /* main Content divtől elválasztja */
-  padding: 12px; /* box model értelmében elválasztja az aside contentet az aside bordertől */
+  flex-direction: column; /* nav + footer */
+  padding: 12px;
+
+  /* Színezés: sidebar kap egy “surface” hátteret, nem marad a body bg-n */
+  background: var(--color-surface);
+
+  /* Elválasztó vonal a main contenttől */
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar__nav {
-  flex: 1; /* Töltse ki a rendelkezésre álló helyet */
-  overflow: auto; /* később ha sok menüpont lenne, ez görgethető */
+  flex: 1;
+  overflow: auto;
 }
 
 .sidebar__list {
-  list-style: none; /* Eltünteti a lista pöttyöket */
-  margin: 0; /* Kinullázzuk az alapformázását */
-  padding: 0; /* Kinullázzuk az alapformázását */
-  display: grid; /* Egymás alatti elemek, itt nem kell flex, bár látszólag semmi nem változik*/
-  gap: 8px; /* Listaelemek közötti függőleges távolság */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
 }
 
 .sidebar__link {
-  width: 100%; /*A gomb kitölti a szülő (sidebar) szélességét */
-  text-align: left; /* Balra igazítás. (A gomb defaultja középen lenne */
-  padding: 10px 12px; /* Növeljük a méretét + a kattintható felületet */
-  border: 1px solid transparent; /* Alapjáraton ne látszódjon a border, mert ez inkább menü item mint sem gomb */
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+
+  border: 1px solid transparent;
   background: transparent;
-  border-radius: 8px; /* Lekerekített sarok */
+  border-radius: var(--radius-sm);
 
-  display: block; /* fontos, mert <a> elem lett a NavLink hatására */
-  text-decoration: none; /* link aláhúzás eltüntetése */
-  color: inherit;
+  display: block;
+  text-decoration: none;
+
+  /* szövegszín: legyen picit “secondary”, hogy az active jobban kiemelkedjen */
+  color: var(--color-text-secondary);
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
-/*Sima hover állapot*/
+
+/* Hover */
 .sidebar__link:hover {
-  border-color: #ccc;
-  background: #f7f7f7;
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
 }
 
-/* aktív menüpont */
+/* Aktív menüpont */
 .sidebar__link--active {
   font-weight: 600;
-  background: #eee;
+  background: rgba(99, 102, 241, 0.16); /* accent “tint” */
+  border-color: rgba(99, 102, 241, 0.35);
+  color: var(--color-text-primary);
 }
 
-/* Vizuálisan elkülönítjük a menü többi részétől*/
+/* Footer szeparátor */
 .sidebar__footer {
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .sidebar__logout {
   width: 100%;
   padding: 10px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  background: #fff;
+  border-radius: var(--radius-sm);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--color-text-primary);
+
   cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.sidebar__logout:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.18);
 }

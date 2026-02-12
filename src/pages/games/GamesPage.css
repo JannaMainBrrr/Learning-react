@@ -1,47 +1,96 @@
-/*A teljes Games oldal konténere. Most csak spacing miatt van, a layoutot nem ez intézi.*/
+/* =========================
+   Page container
+========================= */
+
 .gamesPage {
-  padding: 16px;
+  padding: 32px;
 }
 
-/*Oldal fejléce (cím). Elkülönítjük a gridtől vizuálisan.*/
 .gamesPage__header {
-  margin-bottom: 16px;
+  margin-bottom: 60px;
 }
+
+/* =========================
+   Grid layout
+========================= */
 
 .gamesPage__grid {
   display: grid;
-
-  /*A grid annyi oszlopot rak ki, amennyi kifér, DE egy kártya minimum 260px széles legyen. Desktopon ez tipikusan 3 oszlopot fog adni.*/
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-
-  gap: 48px 48px;
+  gap: 48px;
 }
+
+/* =========================
+   Card (outer - Link)
+========================= */
 
 .gamesPage__card {
-  width: 100%;
-  aspect-ratio: 1 / 1; /* ikon tile */
-  overflow: hidden; /* kép ne lógjon ki */
-  border-radius: 36px;
+  display: block;
+  text-decoration: none;
+  color: inherit;
 
-  background: transparent;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
+  transition: transform 0.2s ease;
 }
+
+/* Hover: a teljes kártya lebeg */
+.gamesPage__card:hover {
+  transform: translateY(-24px);
+}
+
+/* =========================
+   Card Inner (clipping + radius)
+========================= */
+
+.gamesPage__cardInner {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  border-radius: 36px;
+  overflow: hidden;
+
+  transition: box-shadow 0.2s ease;
+}
+
+/* Hover shadow a belső dobozon */
+.gamesPage__card:hover .gamesPage__cardInner {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================
+   Cover image
+========================= */
 
 .gamesPage__cover {
   width: 100%;
   height: 100%;
-
-  object-fit: cover; /* vagy contain, ha logósabb */
+  object-fit: cover;
   display: block;
+
+  transition: transform 0.3s ease;
 }
 
-.gamesPage__card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-  border-color: #3a3a3a;
+/* Enyhe zoom hoverkor */
+.gamesPage__card:hover .gamesPage__cover {
+  transform: scale(1.05);
+}
 
-  /* finom sötét overlay hoveren */
-  background: rgba(255, 255, 255, 0.03);
+/* =========================
+   Overlay layer
+========================= */
+
+.gamesPage__cardInner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.2s ease;
+  pointer-events: none;
+}
+
+/* Sötétítés hoverkor */
+.gamesPage__card:hover .gamesPage__cardInner::after {
+  background: rgba(0, 0, 0, 0.25);
 }

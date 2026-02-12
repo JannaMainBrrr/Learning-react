@@ -3,6 +3,9 @@ export type Game = {
   id: string; //route param, későbbi filterhez, maphoz
   title: string;
   coverUrl: string; /// public/ alatti kép útvonala, pl: "/covers/anno1800.png"
+  description?: string;
+  releaseYear?: number;
+  genre?: string;
 };
 //Ide is kell az export kulcsszó
 export const GAMES: Game[] = [

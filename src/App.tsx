@@ -11,6 +11,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 import LandingPage from "./pages/landing/LandingPage";
 import GamesPage from "./pages/games/GamesPage";
+import GameDetailsPage from "./pages/games/GameDetailsPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import SettingsPage from "./pages/settings/SettingsPage";
 import AppLayout from "./layout/AppLayout";
@@ -25,6 +26,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/games" element={<GamesPage />} />
+        <Route path="games/:gameId" element={<GameDetailsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

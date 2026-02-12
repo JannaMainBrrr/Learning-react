@@ -32,7 +32,7 @@ className={...}
     Outputja egy string lesz, mert a className prop stringet vár
       Stringbe ágyazott javascript : `sidebar__link ${isActive ? "sidebar__link--active" : ""}` -> feltétel ? érték_ha_igaz : érték_ha_hamis
         ha isActive === true, akkor: "sidebar__link sidebar__link--active"
-        ha isActive === false, akkor: "sidebar__link "
+        ha isActive === false, akkor: "sidebar__link"
 
 item.path === "/" -> ez egy boolean prop, azért kell, hogy a Dashboard ne legyen mindig aktív.
   true, ha Dashboard -> a NavLink csak akkor aktív, ha az URL pontosan /
