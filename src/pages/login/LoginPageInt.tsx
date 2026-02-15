@@ -1,5 +1,9 @@
 import { useState, useMemo } from "react";
 import "./LoginPageInt.css";
+
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/AuthContext";
+
 /*Login page - "Haladóbb"
     Kezdő verzió, viszont vannak "hibái, ami miatt kevésbé jól skálázható:"
     1) 5db state is van, de csak 2 input mező, ha bővülne mezővel, akkor kéne sok új state, sok kódismétlés stb.
@@ -61,6 +65,13 @@ export default function LoginPageInt() {
   //Globális submit hiba későbbre A useState mindig egy párt ad vissza, ezétr: string | null --> Lehet string VAGY null, de a kezdeti értéke null.
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Honnan jött a user? (ProtectedLayout-ból)
+  const from = (location.state as any)?.from?.pathname || "/";
+
   //Errors objektum
   //Ez a hook azért "kell", hogy ne fusson le minden rendernél -> futtasd le a validate(values)-t.
   // A [values] a függőségi lista, amit figyel, hogy változik-e. Ha nem változik, akkor a korábbi eredményt adja vissza
@@ -84,12 +95,20 @@ export default function LoginPageInt() {
   };
   if (submitError) setSubmitError(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTouched({ username: true, password: true });
 
     if (!isValid) return;
-    console.log("LOGIN SUBMIT", values);
+
+    const ok = await login(values.username, values.password);
+
+    if (!ok) {
+      setSubmitError("Adj meg felhasználónevet és jelszót.");
+      return;
+    }
+
+    navigate(from, { replace: true });
   };
 
   return (

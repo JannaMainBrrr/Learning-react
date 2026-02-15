@@ -24,12 +24,21 @@ Mi történik renderkor?
 7️⃣ Az AppLayout csak ezt csinálja: <main>{children}</main>
 */
 
-export default function AppLayout({ onLogout }: Props) {
+/*
+<Outlet />
+  Ha az URL /games, akkor:
+  Router kiválasztja a parent route-ot az App.tsx-ben ("/")
+  Rendereli az AppLayoutot
+  Megkeresi a child route-ot ("games")
+  A GamesPage-t beteszi az <Outlet /> helyére
+ */
+
+export default function AppLayout() {
   return (
     <div className="app">
       <Header />
       <div className="content">
-        <Sidebar onLogout={onLogout} />
+        <Sidebar />
         <main className="mainContent">
           <Outlet />
         </main>

@@ -16,24 +16,26 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import SettingsPage from "./pages/settings/SettingsPage";
 import AppLayout from "./layout/AppLayout";
 import LoginPageInt from "./pages/login/LoginPageInt";
+import ProtectedLayout from "./auth/ProtectedLayout";
 
 export default function App() {
-  function handleLogout() {
-    console.log("TODO: logout");
-  }
-
+  //Index element: Ha pontosan a szülő útvonalon vagyunk ("/") és nincs további path szegmens, akkor ezt fogja renderelni.
+  //A ProtectedLayout egy “névtelen” route wrapper: csak azt mondja, hogy a benne lévő route-ok védettek, és ő adja az <Outlet />-et.
   return (
     <Routes>
       <Route path="/login" element={<LoginPageInt />} />
 
-      <Route path="/" element={<AppLayout onLogout={handleLogout} />}>
-        <Route index element={<LandingPage />} />
-        <Route path="/games" element={<GamesPage />} />
-        <Route path="games/:gameId" element={<GameDetailsPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+      <Route element={<ProtectedLayout />}>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<LandingPage />} />
+          <Route path="games" element={<GamesPage />} />
+          <Route path="games/:gameId" element={<GameDetailsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
       </Route>
+
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

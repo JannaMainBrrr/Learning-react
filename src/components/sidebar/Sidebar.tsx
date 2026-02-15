@@ -1,6 +1,9 @@
 import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
+import { useAuth } from "../../auth/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 type SidebarItem = {
   label: string;
   path: string; // Routinghoz fog kelleni
@@ -13,11 +16,6 @@ const SIDEBAR_ITEMS: SidebarItem[] = [
   { label: "Settings", path: "/settings" },
 ];
 
-//A sidebar nem kezeli a stateket, de megcsináljuk a kiállást neki: Ha megkapja az onLogout függvényt, akkor végrehajtja majd.
-//Itt a ? szintaktika js specifikus, jelentése: Opcionális prop
-type SidebarProps = {
-  onLogout?: () => void;
-};
 //Lista mappolása, annyi a különbség, hogy a routing miatt a path lesz a key, van BEM naming convention (Block__element--modifier)
 //A kezdő {} a JS helye, illetve egyelőre belerakunk egy buttont minden listaelemhez, ami a consoleba írja, hova navigálnánk.)
 //A map () tartalma azért van plusz zárójelben, mert függvényt vár. A függvéy szintaxisa pedig: (item) => (...)
@@ -52,7 +50,15 @@ Teljes folyamat:
 
 */
 
-export default function Sidebar({ onLogout }: SidebarProps) {
+export default function Sidebar() {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
+
   return (
     <aside className="sidebar">
       <nav className="sidebar__nav">
@@ -77,9 +83,7 @@ export default function Sidebar({ onLogout }: SidebarProps) {
         <button
           type="button"
           className="sidebar__logout"
-          onClick={() =>
-            onLogout ? onLogout() : console.log("Logout clicked")
-          }
+          onClick={handleLogout}
         >
           Logout
         </button>
