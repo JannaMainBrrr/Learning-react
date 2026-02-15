@@ -1,10 +1,10 @@
+import { Outlet } from "react-router-dom";
 import Header from "../components/header/Header";
 import Sidebar from "../components/sidebar/Sidebar";
 
 import "./AppLayout.css";
 
 type Props = {
-  children: React.ReactNode;
   onLogout: () => void;
 };
 
@@ -24,13 +24,15 @@ Mi történik renderkor?
 7️⃣ Az AppLayout csak ezt csinálja: <main>{children}</main>
 */
 
-export default function AppLayout({ children, onLogout }: Props) {
+export default function AppLayout({ onLogout }: Props) {
   return (
     <div className="app">
       <Header />
       <div className="content">
         <Sidebar onLogout={onLogout} />
-        <main className="mainContent">{children}</main>
+        <main className="mainContent">
+          <Outlet />
+        </main>
       </div>
     </div>
   );

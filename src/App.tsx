@@ -15,6 +15,7 @@ import GameDetailsPage from "./pages/games/GameDetailsPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import SettingsPage from "./pages/settings/SettingsPage";
 import AppLayout from "./layout/AppLayout";
+import LoginPageInt from "./pages/login/LoginPageInt";
 
 export default function App() {
   function handleLogout() {
@@ -22,15 +23,17 @@ export default function App() {
   }
 
   return (
-    <AppLayout onLogout={handleLogout}>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
+    <Routes>
+      <Route path="/login" element={<LoginPageInt />} />
+
+      <Route path="/" element={<AppLayout onLogout={handleLogout} />}>
+        <Route index element={<LandingPage />} />
         <Route path="/games" element={<GamesPage />} />
         <Route path="games/:gameId" element={<GameDetailsPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </AppLayout>
+      </Route>
+    </Routes>
   );
 }
