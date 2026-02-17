@@ -4,10 +4,6 @@ import Sidebar from "../components/sidebar/Sidebar";
 
 import "./AppLayout.css";
 
-type Props = {
-  onLogout: () => void;
-};
-
 //Az AppLayout felel a struktúráért: A header és a sidebar componenseket meghívja + definiálja az elrendezéshez szükséges UI blokkokat, illetve formázza őket. -> Keretet ad
 //Az App.tsx-ben minden ami az <AppLayout> ... </AppLayout> között van, az automatikusan props.children
 //A {children} helyére kerül pont az, amit az App.tsx-ben beletettünk, tehát a Router által URL alapján kiválasztott és renderelt komponens ebben az esetben.

@@ -17,6 +17,10 @@ import SettingsPage from "./pages/settings/SettingsPage";
 import AppLayout from "./layout/AppLayout";
 import LoginPageInt from "./pages/login/LoginPageInt";
 import ProtectedLayout from "./auth/ProtectedLayout";
+import GameAnalyzeTab from "./pages/games/tabs/GameAnalyzeTab";
+import GameCompareTab from "./pages/games/tabs/GameCompare";
+import GameOverviewTab from "./pages/games/tabs/GameOverviewTab";
+import GameSessionsTab from "./pages/games/tabs/GameSessionsTab";
 
 export default function App() {
   //Index element: Ha pontosan a szülő útvonalon vagyunk ("/") és nincs további path szegmens, akkor ezt fogja renderelni.
@@ -29,7 +33,14 @@ export default function App() {
         <Route path="/" element={<AppLayout />}>
           <Route index element={<LandingPage />} />
           <Route path="games" element={<GamesPage />} />
-          <Route path="games/:gameId" element={<GameDetailsPage />} />
+          <Route path="games/:gameId" element={<GameDetailsPage />}>
+            <Route index element={<Navigate to="overview" replace />} />
+            <Route path="overview" element={<GameOverviewTab />} />
+            <Route path="compare" element={<GameCompareTab />} />
+            <Route path="analyze" element={<GameAnalyzeTab />} />
+            <Route path="sessions" element={<GameSessionsTab />} />
+            <Route path="*" element={<Navigate to="overview" replace />} />
+          </Route>
           <Route path="profile" element={<ProfilePage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
