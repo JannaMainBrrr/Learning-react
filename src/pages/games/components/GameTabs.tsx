@@ -8,7 +8,7 @@ type GameTabItem = {
 
 const GAME_TAB_ITEMS: GameTabItem[] = [
   { label: "Overview", path: "overview" },
-  { label: "Session", path: "sessions" },
+  { label: "Sessions", path: "sessions" },
   { label: "Analyze", path: "analyze" },
   { label: "Compare", path: "compare" },
 ];

@@ -1,0 +1,365 @@
+/* ============================= */
+/* Root */
+/* ============================= */
+/* Alapelv:
+Konténer layout: mi rendezi a szekciókat? (itt: flex column + gap
+Spacing rendszer: nagy gap a szekciók közt, kisebb gap egy blokkon belül
+Tipográfia: mi a fő cím, mi meta, mi mellékes (muted)
+Dekoráció: elválasztók, panelek, chipek
+Tokenek: amit 3+ helyen használsz, csináld változónak (line/muted/panel)
+*/
+.overviewTab {
+  /* ne tapadjon a tartalom a layout széléhez, legyen köztük hely*/
+  padding: 32px 24px;
+  /* A konténer gyerekei (topSummary,media,requirements,gallery stb) egymás alá kerülnek.*/
+  display: flex;
+  flex-direction: column;
+  /* Egységes térköz a gyerek elemek között*/
+  gap: 40px;
+
+  /*
+  dark defaultok
+  ha van --color-text globálisan (pl. theme-ből), akkor azt használja
+  ha nincs, akkor fallback: rgba(255,255,255,0.92)
+  */
+  color: var(--color-text, rgba(255, 255, 255, 0.92));
+
+  /*
+  kis “tokenek” -> css változók, amelyek csak az overviewTab scopejában élnek és a gyerekeiben öröklődnekű
+  Arra jó, hogy ha sok helyen van ugyanaz használva, akkor mindet ezeken keresztül lehet állítani
+  */
+  --line: rgba(255, 255, 255, 0.1);
+  --muted: rgba(255, 255, 255, 0.65);
+  --muted-2: rgba(255, 255, 255, 0.45);
+  --chip-bg: rgba(255, 255, 255, 0.06);
+  --chip-border: rgba(255, 255, 255, 0.1);
+  --panel-bg: rgba(255, 255, 255, 0.04);
+  --panel-border: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================= */
+/* Top Summary */
+/* ============================= */
+
+.overviewTab__topSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.overviewTab__title {
+  /*Default margint leszedjük h1-ről*/
+  margin: 0;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- Meta row ---------- */
+
+.overviewTab__meta {
+  display: flex;
+  /*Wrap: Kisebb képernyőn több sorba törik*/
+  flex-wrap: wrap;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+/*overviewTab__meta span + span::before
+  Összetett selector: overviewTab_meta elemein belül
+  span + span: "Szomszéd" selector A + B -> B olyan elem, ami közvetlenül az A után jön. Tehát minden span, ami közvetlenül egy másik span után jön.
+  ::before -> pseudo-element: Olyan virtuális elem, amit a CSS generál az adott elem ELEJÉRE, ugyanígy van ::after és ::first-line stb.
+  A ::before minden elem elejére beteszi a content-ben szereplő karaktert.
+  content -> | elválasztó -> nem a JSX-be rakjuk, hanem ide
+
+  Tehát a HTML-be nem kerül be, a JSX-et sem kell piszkálni, css-ből van megoldva a dekoráció.
+*/
+.overviewTab__meta span + span::before {
+  content: "|";
+  margin: 0 12px; /* Szeparátor elemre vonatkozik, hogy ne tapadjon a szövegre */
+  color: var(--muted-2);
+}
+
+/* ---------- Tags ---------- */
+/* Kiszedjük a lista formázásait + wrappeljük és közöljük gappel ugyanúgy */
+.overviewTab__tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.overviewTab__tag {
+  /* Paddingel növeljük a "téglalap" területét */
+  padding: 6px 12px;
+  font-size: 14px;
+
+  border-radius: 0; /* nincs lekerekítés */
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/* ============================= */
+/* Media Section */
+/* ============================= */
+
+.overviewTab__media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 32px; /*Mennyire toljuk el a border-bottomot.*/
+  border-bottom: 1px solid var(--line);
+}
+
+/* Section Title (Description / Official Trailer) */
+.overviewTab__sectionTitle {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Description panel */
+.overviewTab__description {
+  padding: 14px 14px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  /*games.ts-ben a stringben a sortörtést itt kezeli le*/
+  white-space: pre-line;
+}
+
+.overviewTab__description p {
+  margin: 0;
+  line-height: 1.7;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+/* Video - Nem kötelező, inkább struktúra miatt van */
+.overviewTab__videoWrapper {
+  display: flex;
+  flex-direction: column;
+}
+/* Ez adja meg a videó keretét */
+.overviewTab__video {
+  margin-top: 12px;
+  aspect-ratio: 16 / 9;
+  /*Ez is finomhangolás, adunk neki egy keretet,inkább akkor jó, amikor nincs trailerUrl*/
+  border: 1px solid var(--panel-border);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.overviewTab__iframe {
+  /*Kitölti a parentet, ami a overviewTab_video*/
+  width: 100%;
+  height: 100%;
+  /*iframe-nek van egy fehér bordere*/
+  border: 0;
+  /*Látszólag nem csinál semmi, de amúgy eltünteti az inline elemeknél megjelenő kis rést. */
+  display: block;
+}
+/*Placeholder szöveg, ha nem lenne trailerUrl */
+.overviewTab__videoPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--muted-2);
+  font-style: italic;
+}
+
+/* ============================= */
+/* Requirements */
+/* ============================= */
+
+.overviewTab__requirements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+
+.overviewTab__requirementsCard h3 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* Spec list */
+.overviewTab__specList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.overviewTab__specRow {
+  display: flex;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.overviewTab__specLabel {
+  font-weight: 600;
+  min-width: 80px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.overviewTab__specValue {
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+/* ============================= */
+/* Gallery */
+/* ============================= */
+
+.overviewTab__gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.overviewTab__galleryImage {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.04);
+
+  cursor: pointer;
+}
+
+/* ============================= */
+/* Responsive */
+/* ============================= */
+/*@media 
+@media egy css at-rule szabály -> A stílusok csak akkor legyenek érvényesek, ha a feltétel igaz.
+A .overviewTab__gallery alapból -> grid-template-columns: repeat(4, 1fr)
+A 4 oszlop csak addig szép, ameddig van elég szélesség az oldalon a thumbnaileknek, így 1100p alatt 3-ra váltunk
+*/
+@media (max-width: 1100px) {
+  .overviewTab__gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .overviewTab__media {
+    grid-template-columns: 1fr;
+  }
+
+  .overviewTab__requirements {
+    grid-template-columns: 1fr;
+  }
+
+  .overviewTab__gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .overviewTab {
+    padding: 20px 16px;
+    gap: 32px;
+  }
+
+  .overviewTab__title {
+    font-size: 26px;
+  }
+
+  .overviewTab__gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================= */
+/* Lightbox (separate block) */
+/* ============================= */
+
+.lightbox {
+  position: fixed; /*Viewporthoz rögzíti, scroll esetén sem mozdul el.*/
+  inset: 0; /*Shorthand, hogy kitöltse a képernyőt*/
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 9999; /*Ezzel kerül az összes réteg felé, ettől lesz "modal", a többi contentet háttérbe tolja*/
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightbox__content {
+  position: relative; /*Ha itt nem lenne position: relative, akkor a gombok a viewporthoz vagy valami külső elemhez igazodnának → elcsúszás / nehéz kontroll*/
+  max-width: min(1100px, 100%);
+  width: 100%;
+  max-height: 85vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox__image {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 60px;
+  height: 60px;
+  border-radius: 999px;
+
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+
+  cursor: pointer;
+  font-size: 34px;
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.2s ease;
+}
+
+.lightbox__nav:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox__nav--prev {
+  left: -200px;
+}
+
+.lightbox__nav--next {
+  right: -200px;
+}
