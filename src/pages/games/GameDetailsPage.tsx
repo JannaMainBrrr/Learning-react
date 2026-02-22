@@ -1,4 +1,5 @@
 import { useParams, Link, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
 import GameTabs from "./components/GameTabs";
 import { getGameById } from "../../services/games.service";
 import type { Game } from "../../types/game.types"; //A game típusra továbbra is szükség van
@@ -22,28 +23,86 @@ Runtime-ban a gameId lehet undefined, ezért érdemesebb gameId?: -ként megadni
 */
   const { gameId } = useParams<{ gameId?: string }>();
 
-  const game = gameId ? getGameById(gameId) : undefined;
+  const [game, setGame] = useState<Game | null>(null);
+  const [loading, setLoading] = useState(true); //Amikor betölt az oldal (első render) még nincs adat, ezért true
+  const [error, setError] = useState<string | null>(null);
+  const [notFound, setNotFound] = useState(false);
 
-  //Kikerestük a game propertyből a game.id tartalmát, ha nincs ilyen, akkor vissza navigálunk
-  if (!game) {
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      // reset minden új lekérés előtt
+      setLoading(true);
+      setError(null);
+      setNotFound(false);
+      setGame(null);
+
+      // ha nincs gameId (rossz route), kezeljük not found-ként
+      if (!gameId) {
+        setNotFound(true);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const data = await getGameById(gameId);
+        if (cancelled) return;
+
+        if (!data) {
+          setNotFound(true);
+          return;
+        }
+
+        setGame(data);
+      } catch (err) {
+        if (cancelled) return;
+
+        const message = err instanceof Error ? err.message : "Unknown error";
+        setError(message);
+      } finally {
+        if (cancelled) return;
+        setLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [gameId]); // <-- Dependency array nem üres: param változáskor újra lekér
+
+  // Early returnok állapot alapján
+  if (loading) {
+    return <p>Loading game...</p>;
+  }
+
+  if (error) {
     return (
       <div>
-        <h1>Game not found</h1>
-        <p>Nem találom ezt a játékot: {String(gameId)}</p>
+        <h1>Could not load game</h1>
+        <p>{error}</p>
         <Link to="/games">Back to the games</Link>
       </div>
     );
   }
-  /*
-Különbség a : és a satisfies között ->
-: -> Típus erőltetés “Ez az objektum pontosan GameDetailsOutletContext típusú.”
-satisfies -> Ellenőrzés, hogy megfelel-e a típusnak, de meghagyja az eredeti típust. Tehát ha a minimum propertyk megvannak, nem dob hibát, ha van plusszban property, azt meghagyja.
- */
+
+  if (notFound || !game) {
+    return (
+      <div>
+        <h1>Game not found</h1>
+        <p>Game not found: {String(gameId)}</p>
+        <Link to="/games">Back to the games</Link>
+      </div>
+    );
+  }
+
+  // Success render
   return (
     <div className="gameDetailsPage">
       <div className="gameDetailsPage__tab">
         <GameTabs />
       </div>
+
       <div className="gameDetailsPage__content">
         <Outlet context={{ game }} />
       </div>
