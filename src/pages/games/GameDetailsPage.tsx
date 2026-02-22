@@ -1,18 +1,10 @@
-import { GAMES } from "../../data/games"; //Ismernie kell neki is a games.ts tartalmát, hisz onnan fogja az egyes objectek információit megkapni
-import type { Game } from "../../data/games";
 import { useParams, Link, Outlet } from "react-router-dom";
 import GameTabs from "./components/GameTabs";
+import { getGameById } from "../../services/games.service";
+import type { Game } from "../../types/game.types"; //A game típusra továbbra is szükség van
 
 /* A useParams() egy hook, ami kiolvassa az aktuális URL paramétereket
   Ha az url: /games/minecraft és a route games/:gameId  , akkor a useParams() ezt az objektumot adja vissza: {gameId: "minecraft"} 
-*/
-
-/*
-Ez itt most nem szükséges, mivel a data/games.ts-ben ott van már a típusdefiníció
-Vedd a GAMES változó típusát (Array of objects)
-[number] ->Index access type -> A tömb bármely elemének típusát vonja ki, tehát ha később bővülne a GAMES tömb, akkor dinamikusan frissül itt is a típus hivatkozás.
-A TS tömb típusnál nem egyes indexeket kezel külön, hanem egy általános numeric index signature-t használ -> [index: number]: Game
-export type Game = (typeof GAMES)[number];
 */
 
 /*
@@ -30,7 +22,7 @@ Runtime-ban a gameId lehet undefined, ezért érdemesebb gameId?: -ként megadni
 */
   const { gameId } = useParams<{ gameId?: string }>();
 
-  const game = GAMES.find((g) => g.id === gameId); //game.id az id property értékét adja vissza
+  const game = gameId ? getGameById(gameId) : undefined;
 
   //Kikerestük a game propertyből a game.id tartalmát, ha nincs ilyen, akkor vissza navigálunk
   if (!game) {

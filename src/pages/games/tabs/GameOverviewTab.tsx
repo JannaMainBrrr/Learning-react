@@ -3,22 +3,25 @@ import type { GameDetailsOutletContext } from "../GameDetailsPage";
 import { useState } from "react";
 import GalleryLightbox from "../components/GalleryLightbox";
 import "./GameOverviewTab.css";
-/*
-A requirements.minimum és requirements.recommended ugyanazokat a mezőket tartalmazza. Kézzel írva: <li>OS: {min.os}</li>
-Ez redundáns + Ha bővítenénk pl. a spect, akkor kézzel a jsx-ben is át kéne írni.
-A cél 1 lista, amely megmondja: Milyen mezőket, milyen sorrendben és milyen felirattal jelenítünk meg.
-Majd ebből a listából generáljuk le a sorokat.
 
-Az as const kulcsszó azért kell, hogy a tömb elemei readonly-k, a stringek pedig literal típusok legyenek.
-Tehát az "os" típusa nem string kell hogy legyen, ami ilyenkor default, hanem konkrétan "os" típus és a TS le tudja vezetni a uniont: "os" | "cpu" | "gpu" | "ram" | "storage"
+import type { SystemSpec } from "../../../types/game.types";
+
+/*Miért kell a SPEC_FIELDS?
+  Ha nem haszálnánk, akkor egyesével kéne végighivatkozni + ha bővül a típus akkor itt kézzel bele kéne írni a JSX-be, így viszont elég a SPEC_FIELDS-be felvenni.
+    <li>OS: {minSpec.os}</li>
+    <li>CPU: {minSpec.cpu}</li>
+  Megoldás: A SPEC_FIELDS egy renderelési konfigurációs lista -> Megmondja, melyik mezőket, milyen sorrendben, milyen labellel jelenítsük meg.
+  keyof jelentése: Véd az elgépelés ellen, a SystemSpec kulcsainak uniójából lehet csak a típust meghatározni.
  */
-const SPEC_FIELDS = [
+type SpecKey = keyof SystemSpec;
+
+const SPEC_FIELDS: ReadonlyArray<{ key: SpecKey; label: string }> = [
   { key: "os", label: "OS" },
   { key: "cpu", label: "CPU" },
   { key: "gpu", label: "GPU" },
   { key: "ram", label: "RAM" },
   { key: "storage", label: "Storage" },
-] as const;
+];
 
 export default function GameOverviewTab() {
   const { game } = useOutletContext<GameDetailsOutletContext>();
@@ -131,9 +134,9 @@ export default function GameOverviewTab() {
       {/*Ez a gallery preview grid, mindig látszik + beállítja az activeIndex statet a kép INDEXÉVEL */}
 
       <div className="overviewTab__gallery">
-        {game.galleryUrls?.map((url, index) => (
+        {galleryUrls.map((url, index) => (
           <img
-            key={url}
+            key={`${url}-${index}`}
             className="overviewTab__galleryImage"
             src={url}
             alt={`${game.title} gallery picture ${index + 1}`}

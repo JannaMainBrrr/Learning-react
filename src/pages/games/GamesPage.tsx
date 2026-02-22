@@ -1,15 +1,17 @@
-import { GAMES } from "../../data/games";
 import { Link } from "react-router-dom";
 import "./GamesPage.css";
+import { getGames } from "../../services/games.service";
 
 export default function GamesPage() {
+  const games = getGames();
+
   return (
     <section className="gamesPage">
       <header className="gamesPage__header">
         <h1 className="gamesPage__title">Welcome to the games page!</h1>
       </header>
       <div className="gamesPage__grid">
-        {GAMES.map((game) => (
+        {games.map((game) => (
           <Link
             key={game.id}
             to={`/games/${game.id}`}
