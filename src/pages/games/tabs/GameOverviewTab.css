@@ -22,7 +22,7 @@ Tokenek: amit 3+ helyen használsz, csináld változónak (line/muted/panel)
   ha van --color-text globálisan (pl. theme-ből), akkor azt használja
   ha nincs, akkor fallback: rgba(255,255,255,0.92)
   */
-  color: var(--color-text, rgba(255, 255, 255, 0.92));
+  color: rgba(255, 255, 255, 0.92);
 
   /*
   kis “tokenek” -> css változók, amelyek csak az overviewTab scopejában élnek és a gyerekeiben öröklődnekű

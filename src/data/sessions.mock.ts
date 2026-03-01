@@ -1,0 +1,277 @@
+// src/data/sessions.mock.ts
+import type { SessionRecord } from "../types/session.types";
+
+export const sessionsMock: SessionRecord[] = [
+  {
+    id: "sess_anno_0001",
+    gameId: "anno-1800",
+    name: "Anno - High preset - 15 min",
+    uploadedAt: "2026-02-24T19:12:00.000Z",
+    startedAt: "2026-02-24T19:00:45.000Z",
+    endedAt: "2026-02-24T19:15:45.000Z",
+    durationMs: 15 * 60 * 1000,
+
+    cpuTempAvgC: 71.4,
+    cpuTempMinC: 54.2,
+    cpuTempMaxC: 86.9,
+
+    cpuUsageAvgPercent: 63.5,
+    cpuUsageMinPercent: 28.1,
+    cpuUsageMaxPercent: 97.8,
+
+    cpuClockAvgMhz: 4120,
+    cpuClockMinMhz: 3800,
+    cpuClockMaxMhz: 4450,
+
+    cpuPowerAvgW: 92.0,
+    cpuPowerMinW: 68.0,
+    cpuPowerMaxW: 121.0,
+
+    gpuTempAvgC: 68.1,
+    gpuTempMinC: 49.6,
+    gpuTempMaxC: 78.3,
+
+    gpuHotspotTempAvgC: 79.4,
+    gpuHotspotTempMinC: 61.2,
+    gpuHotspotTempMaxC: 92.8,
+
+    gpuUsageAvgPercent: 91.6,
+    gpuUsageMinPercent: 44.9,
+    gpuUsageMaxPercent: 100.0,
+
+    gpuClockAvgMhz: 2715,
+    gpuClockMinMhz: 2100,
+    gpuClockMaxMhz: 2850,
+
+    gpuPowerAvgW: 198.0,
+    gpuPowerMinW: 120.0,
+    gpuPowerMaxW: 235.0,
+
+    gpuPowerPercentTdpAvg: 88.0,
+
+    fpsAvg: 83.2,
+    fpsMin: 55.0,
+    fpsMax: 112.0,
+
+    ramUsedAvgMb: 9870,
+    ramUsedMaxMb: 12140,
+    ramUsageAvgPercent: 61.2,
+    ramUsageMaxPercent: 74.8,
+
+    sourceFilename: "anno1800_run1.csv",
+  },
+  {
+    id: "sess_anno_0002",
+    gameId: "anno-1800",
+    name: "Anno - Medium preset - 10 min",
+    uploadedAt: "2026-02-23T21:05:00.000Z",
+    durationMs: 10 * 60 * 1000,
+    status: "processed",
+
+    cpuTempAvgC: 66.8,
+    cpuTempMinC: 52.0,
+    cpuTempMaxC: 81.4,
+
+    gpuTempAvgC: 63.7,
+    gpuTempMinC: 47.2,
+    gpuTempMaxC: 74.1,
+
+    fpsAvg: 97.5,
+    fpsMin: 71.0,
+    fpsMax: 138.0,
+
+    // szándékosan hagyunk ki pár mezőt, hogy lásd az optional kezelést
+    ramUsedAvgMb: 9020,
+    ramUsedMaxMb: 11080,
+  },
+  {
+    id: "sess_anno_0003",
+    gameId: "anno-1800",
+    name: "Anno – Ultra – 20 min",
+    uploadedAt: "2026-02-24T10:15:00.000Z",
+    durationMs: 20 * 60 * 1000,
+    cpuTempAvgC: 74.2,
+    cpuTempMinC: 58.1,
+    cpuTempMaxC: 89.3,
+    gpuTempAvgC: 71.5,
+    gpuTempMinC: 52.4,
+    gpuTempMaxC: 83.2,
+    fpsAvg: 79.6,
+    fpsMin: 50.2,
+    fpsMax: 110.4,
+  },
+
+  {
+    id: "sess_anno_0004",
+    gameId: "anno-1800",
+    name: "Anno – Low preset – 8 min",
+    uploadedAt: "2026-02-23T16:40:00.000Z",
+    durationMs: 8 * 60 * 1000,
+    cpuTempAvgC: 60.4,
+    gpuTempAvgC: 58.3,
+    fpsAvg: 132.5,
+    fpsMax: 160.0,
+  },
+
+  {
+    id: "sess_anno_0005",
+    gameId: "anno-1800",
+    name: "Anno – Dock area stress test",
+    uploadedAt: "2026-02-22T21:12:00.000Z",
+    durationMs: 12 * 60 * 1000,
+    cpuTempAvgC: 78.9,
+    cpuTempMaxC: 92.5,
+    gpuTempAvgC: 75.4,
+    gpuTempMaxC: 87.1,
+    fpsAvg: 64.3,
+    fpsMin: 42.8,
+  },
+
+  {
+    id: "sess_anno_0006",
+    gameId: "anno-1800",
+    name: "Anno – Harbor camera zoom",
+    uploadedAt: "2026-02-22T12:00:00.000Z",
+    durationMs: 6 * 60 * 1000,
+    cpuTempAvgC: 69.1,
+    gpuTempAvgC: 66.2,
+    fpsAvg: 91.0,
+    ramUsedAvgMb: 10020,
+    ramUsedMaxMb: 11890,
+  },
+
+  {
+    id: "sess_anno_0007",
+    gameId: "anno-1800",
+    name: "Anno – CPU heavy scenario",
+    uploadedAt: "2026-02-21T19:50:00.000Z",
+    durationMs: 14 * 60 * 1000,
+    cpuTempAvgC: 82.6,
+    cpuTempMaxC: 95.1,
+    gpuTempAvgC: 63.5,
+    fpsAvg: 72.4,
+    fpsMin: 48.9,
+    fpsMax: 99.0,
+  },
+
+  {
+    id: "sess_anno_0008",
+    gameId: "anno-1800",
+    name: "Anno – Short benchmark",
+    uploadedAt: "2026-02-21T08:30:00.000Z",
+    durationMs: 3 * 60 * 1000,
+    cpuTempAvgC: 65.2,
+    gpuTempAvgC: 61.4,
+    fpsAvg: 105.7,
+  },
+
+  {
+    id: "sess_anno_0009",
+    gameId: "anno-1800",
+    name: "Anno – Long play session",
+    uploadedAt: "2026-02-20T22:10:00.000Z",
+    durationMs: 45 * 60 * 1000,
+    cpuTempAvgC: 73.4,
+    gpuTempAvgC: 69.9,
+    fpsAvg: 82.3,
+    ramUsedAvgMb: 11200,
+    ramUsedMaxMb: 13450,
+  },
+
+  {
+    id: "sess_anno_0010",
+    gameId: "anno-1800",
+    name: "Anno – Camera pan test",
+    uploadedAt: "2026-02-20T17:20:00.000Z",
+    durationMs: 7 * 60 * 1000,
+    cpuTempAvgC: 68.0,
+    cpuTempMinC: 54.2,
+    gpuTempAvgC: 64.8,
+    fpsAvg: 94.2,
+    fpsMax: 120.1,
+  },
+
+  {
+    id: "sess_anno_0011",
+    gameId: "anno-1800",
+    name: "Anno – Missing GPU data",
+    uploadedAt: "2026-02-19T21:45:00.000Z",
+    durationMs: 11 * 60 * 1000,
+    cpuTempAvgC: 70.1,
+    fpsAvg: 88.3,
+  },
+
+  {
+    id: "sess_anno_0012",
+    gameId: "anno-1800",
+    name: "Anno – Thermal spike test",
+    uploadedAt: "2026-02-19T14:00:00.000Z",
+    durationMs: 9 * 60 * 1000,
+    cpuTempAvgC: 85.4,
+    cpuTempMaxC: 98.7,
+    gpuTempAvgC: 76.3,
+    gpuTempMaxC: 90.4,
+    fpsAvg: 60.2,
+    fpsMin: 38.5,
+  },
+
+  {
+    id: "sess_anno_0013",
+    gameId: "anno-1800",
+    name: "Anno – Idle menu capture",
+    uploadedAt: "2026-02-18T20:30:00.000Z",
+    durationMs: 5 * 60 * 1000,
+    cpuTempAvgC: 55.2,
+    gpuTempAvgC: 49.8,
+    fpsAvg: 144.0,
+  },
+
+  {
+    id: "sess_anno_0014",
+    gameId: "anno-1800",
+    name: "Anno – GPU stress",
+    uploadedAt: "2026-02-18T12:15:00.000Z",
+    durationMs: 16 * 60 * 1000,
+    cpuTempAvgC: 72.8,
+    gpuTempAvgC: 83.5,
+    gpuTempMaxC: 95.2,
+    fpsAvg: 58.7,
+    fpsMin: 41.2,
+    fpsMax: 76.9,
+  },
+
+  {
+    id: "sess_anno_0015",
+    gameId: "anno-1800",
+    name: "Anno – Partial RAM data",
+    uploadedAt: "2026-02-17T19:00:00.000Z",
+    durationMs: 13 * 60 * 1000,
+    cpuTempAvgC: 71.0,
+    gpuTempAvgC: 68.2,
+    fpsAvg: 84.6,
+    ramUsedMaxMb: 12500,
+  },
+
+  {
+    id: "sess_anno_0016",
+    gameId: "anno-1800",
+    name: "Anno – No duration field",
+    uploadedAt: "2026-02-17T11:40:00.000Z",
+    cpuTempAvgC: 69.3,
+    gpuTempAvgC: 67.1,
+    fpsAvg: 90.5,
+  },
+
+  {
+    id: "sess_apex_0001",
+    gameId: "apex",
+    name: "Apex – BR match – 18 min",
+    uploadedAt: "2026-02-16T22:00:00.000Z",
+    durationMs: 18 * 60 * 1000,
+    cpuTempAvgC: 76.4,
+    gpuTempAvgC: 74.8,
+    fpsAvg: 143.5,
+    fpsMin: 110.2,
+    fpsMax: 189.7,
+  },
+];
