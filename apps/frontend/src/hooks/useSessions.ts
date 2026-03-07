@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { SessionRecord } from "../types/session.types";
+import type { SessionRecord } from "../../../../shared/types/session.types";
 import { getSessionsByGameId } from "../services/session.service";
 
 export function useSessions(gameId?: string) {

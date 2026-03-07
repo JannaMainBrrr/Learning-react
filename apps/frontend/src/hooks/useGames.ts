@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Game } from "../types/game.types";
+import type { Game } from "../../../../shared/types/game.types";
 import { getGames } from "../services/games.service";
 
 /*

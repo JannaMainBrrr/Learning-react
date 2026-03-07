@@ -1,6 +1,6 @@
 import { useParams, Link, Outlet } from "react-router-dom";
 import GameTabs from "./components/GameTabs";
-import type { Game } from "../../types/game.types";
+import type { Game } from "../../../../../shared/types/game.types";
 import { useGame } from "../../hooks/useGame";
 
 /* A useParams() egy hook, ami kiolvassa az aktuális URL paramétereket

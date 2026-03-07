@@ -4,7 +4,7 @@ import { useState } from "react";
 import GalleryLightbox from "../components/GalleryLightbox";
 import "./GameOverviewTab.css";
 
-import type { SystemSpec } from "../../../types/game.types";
+import type { SystemSpec } from "../../../../../../shared/types/game.types";
 
 /*Miért kell a SPEC_FIELDS?
   Ha nem haszálnánk, akkor egyesével kéne végighivatkozni + ha bővül a típus akkor itt kézzel bele kéne írni a JSX-be, így viszont elég a SPEC_FIELDS-be felvenni.

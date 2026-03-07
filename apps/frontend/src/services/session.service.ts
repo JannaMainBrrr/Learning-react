@@ -1,5 +1,5 @@
-import { sessionsMock } from "../data/sessions.mock";
-import type { SessionRecord } from "../types/session.types";
+import { sessionsMock } from "../../../../shared/mock-data/sessions.mock";
+import type { SessionRecord } from "../../../../shared/types/session.types";
 
 //Fake API késletetés
 function sleep(ms: number) {

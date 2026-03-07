@@ -1,5 +1,5 @@
-import type { Game } from "../types/game.types";
-import { mockGames } from "../data/games.mock";
+import type { Game } from "../../../../shared/types/game.types";
+import { mockGames } from "../../../../shared/mock-data/games.mock";
 
 export async function getGames(): Promise<Game[]> {
   return mockGames;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Game } from "../types/game.types";
+import type { Game } from "../../../../shared/types/game.types";
 import { getGameById } from "../services/games.service";
 
 export function useGame(gameId?: string) {

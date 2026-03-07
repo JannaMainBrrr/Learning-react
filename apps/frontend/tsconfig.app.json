@@ -27,6 +27,10 @@
   "include": [
     "src",
     "leftover/LoginPage_bonyi.tsx",
-    "leftover/LoginPage_easy.tsx"
+    "leftover/LoginPage_easy.tsx",
+    "../../shared/mock-data/games.mock.ts",
+    "../../shared/types/game.types.ts",
+    "../../shared/types/session.types.ts",
+    "../../shared/mock-data/sessions.mock.ts"
   ]
 }
